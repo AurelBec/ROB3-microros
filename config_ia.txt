@@ -1,0 +1,17 @@
+node: ia
+  bin: ./node_ia
+  publish: commande_out -> command.fifo
+  listen: laser_l <- laser1.fifo
+  listen: laser_c <- laser2.fifo
+  listen: laser_r <- laser3.fifo
+  listen: bumper_l <- bumper1.fifo
+  listen: bumper_r <- bumper2.fifo
+node: simu
+  bin: ./node_simu
+  args: --map fastsim/envs/cuisine.pbm --init-pos 300 300
+  publish: bumper_r -> bumper2.fifo
+  publish: bumper_l -> bumper1.fifo
+  publish: laser_r -> laser3.fifo
+  publish: laser_c -> laser2.fifo
+  publish: laser_l -> laser1.fifo
+  listen: commande <- command.fifo
